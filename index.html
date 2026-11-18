@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 | Page Not Found</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #080810;
+    --purple: #a855f7;
+    --red: #ff416c;
+    --white: #f8fafc;
+    --muted: #9292a8;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(#ffffff06 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+    background-size: 35px 35px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    pointer-events: none;
+}
+
+.glow {
+    position: fixed;
+    width: 380px;
+    height: 380px;
+    background: #9333ea;
+    filter: blur(150px);
+    opacity: .17;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 760px;
+    position: relative;
+    text-align: center;
+    animation: show .8s ease-out;
+}
+
+/* Error label */
+.error-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    border: 1px solid #ff416c50;
+    border-radius: 6px;
+    color: #ff829c;
+    background: #ff416c0d;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+}
+
+.error-label i {
+    width: 7px;
+    height: 7px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--red);
+}
+
+/* Main 404 */
+.error-number {
+    position: relative;
+    display: inline-block;
+    font-size: clamp(130px, 29vw, 245px);
+    font-weight: 900;
+    line-height: .9;
+    letter-spacing: -12px;
+    color: transparent;
+    background: linear-gradient(
+        135deg, #ffffff 10%, #d8b4fe 45%,
+        #a855f7 70%, #ff416c 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 8px 40px #a855f725);
+    user-select: none;
+}
+
+.error-number::after {
+    content: "404";
+    position: absolute;
+    inset: 0;
+    color: #ff416c;
+    background: none;
+    -webkit-text-fill-color: #ff416c;
+    opacity: 0;
+    pointer-events: none;
+    animation: glitch 4s infinite;
+}
+
+.subtitle {
+    margin-top: 32px;
+    font-size: 12px;
+    color: #ff829c;
+    letter-spacing: 4px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: clamp(27px, 5vw, 43px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-top: 15px;
+}
+
+.description {
+    max-width: 480px;
+    margin: 17px auto 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Broken document illustration */
+.document {
+    position: relative;
+    width: 72px;
+    height: 84px;
+    margin: 0 auto 23px;
+    border: 2px solid #a855f7;
+    border-radius: 8px;
+    background: #a855f70c;
+    box-shadow: 0 0 35px #a855f71a;
+    transform: rotate(-5deg);
+}
+
+.document::before {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    width: 22px;
+    height: 22px;
+    background: var(--bg);
+    border-left: 2px solid #a855f7;
+    border-bottom: 2px solid #a855f7;
+    border-bottom-left-radius: 5px;
+}
+
+.document span {
+    position: absolute;
+    left: 15px;
+    top: 35px;
+    width: 37px;
+    height: 3px;
+    background: #a855f7;
+    border-radius: 5px;
+}
+
+.document span:nth-child(2) {
+    top: 46px;
+    width: 27px;
+    opacity: .6;
+}
+
+.document span:nth-child(3) {
+    top: 57px;
+    width: 32px;
+    opacity: .3;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn {
+    min-height: 49px;
+    padding: 0 23px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.primary {
+    color: white;
+    background: linear-gradient(110deg, #9333ea, #7c3aed);
+    border: 1px solid #b77aff;
+    box-shadow: 0 8px 25px #9333ea25;
+}
+
+.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px #9333ea50;
+}
+
+.secondary {
+    color: #e2e8f0;
+    background: #ffffff06;
+    border: 1px solid #ffffff20;
+}
+
+.secondary:hover {
+    background: #ffffff10;
+    border-color: #a855f780;
+    transform: translateY(-3px);
+}
+
+.footer {
+    margin-top: 55px;
+    padding-top: 20px;
+    border-top: 1px solid #ffffff10;
+    color: #626277;
+    font-size: 11px;
+    letter-spacing: .5px;
+}
+
+.footer strong {
+    color: #c084fc;
+}
+
+@keyframes show {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glitch {
+    0%, 91%, 100% {
+        opacity: 0;
+        transform: translate(0);
+        clip-path: inset(0 0 100% 0);
+    }
+    92% {
+        opacity: .5;
+        transform: translate(5px, -2px);
+        clip-path: inset(15% 0 65% 0);
+    }
+    94% {
+        opacity: .3;
+        transform: translate(-5px, 2px);
+        clip-path: inset(65% 0 15% 0);
+    }
+    96% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-number {
+        letter-spacing: -7px;
+    }
+
+    h1 {
+        letter-spacing: -.8px;
+    }
+
+    .subtitle {
+        letter-spacing: 2.5px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .footer {
+        margin-top: 38px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="glow"></div>
+
+<main class="wrapper">
+
+    <div class="error-label">
+        <i></i>
+        ERROR 404 &nbsp; / &nbsp; NOT FOUND
+    </div>
+
+    <div class="document" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="error-number" aria-label="404">404</div>
+
+    <div class="subtitle">Oops! Something went wrong</div>
+
+    <h1>Page Not Found</h1>
+
+    <p class="description">
+        The page you are looking for might have been removed,
+        had its name changed, or is temporarily unavailable.
+        Let's get you back to where you belong.
+    </p>
+
+    <div class="buttons">
+        <a href="/" class="btn primary">
+            &#8962; &nbsp; Back to Homepage
+        </a>
+
+        <button class="btn secondary" id="goBack">
+            &#8592; &nbsp; Go Back
+        </button>
+    </div>
+
+    <footer class="footer">
+        ERROR CODE: <strong>404</strong>
+        &nbsp; | &nbsp; HTTP STATUS: PAGE NOT FOUND
+    </footer>
+
+</main>
+
+<script>
+document.getElementById("goBack").addEventListener("click", () => {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "/";
+    }
+});
+</script>
+</body>
+</html>
